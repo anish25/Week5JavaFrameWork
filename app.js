@@ -3,7 +3,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var mongoose =require('mongoose');//requried in mongooswe to cinnect mondo db
+mongoose.connect(
+  `mongodb+srv://Test:test123@cluster0-teidf.mongodb.net/test?retryWrites=true&w=majority`, 
+{
+  useNewUrlParser: true
+}
+);
+var db =mongoose.connection;
+db.on('error',err => console.log(err));
+db.once('open', () => console.log(`Connection to mongooose successful`)); 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
