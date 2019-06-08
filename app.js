@@ -13,8 +13,7 @@ mongoose.connect(
 var db =mongoose.connection;
 db.on('error',err => console.log(err));
 db.once('open', () => console.log(`Connection to mongooose successful`)); 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
 
 var app = express();
 
@@ -28,8 +27,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var articleRouter = require('./routes/article');
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/article', articleRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
